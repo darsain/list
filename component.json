@@ -1,0 +1,28 @@
+{
+  "name": "list",
+  "repo": "darsain/list",
+  "description": "Reimplementation of a native Array as an array like object.",
+  "version": "0.0.1",
+  "keywords": [
+    "array",
+    "list",
+    "fake",
+    "extend",
+    "extensible"
+  ],
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "dependencies": {
+    "darsain/definer": "*",
+    "component/inherit": "*"
+  },
+  "development": {
+    "dependencies": {
+      "visionmedia/mocha": "*",
+      "component/assert": "*"
+    }
+  },
+  "license": "MIT"
+}
