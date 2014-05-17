@@ -40,7 +40,7 @@ Array, or an array-like object to create a List from.
 
 Can be `Array`, `List`, `NodeList`, `arguments`, ... everything that looks like `{ 0: 'foo', length: 1 }`.
 
-#### *Inherits all methods from Array.prototype with some notable behaviors*
+**Inherits all methods from Array.prototype with some notable behaviors:**
 
 - `#filter()` - Returns a native Array.
 - `#map()` - Returns a native Array.
