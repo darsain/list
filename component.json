@@ -2,7 +2,7 @@
   "name": "list",
   "repo": "darsain/list",
   "description": "Reimplementation of a native Array as an array like object.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": [
     "array",
     "list",
