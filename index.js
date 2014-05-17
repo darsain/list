@@ -6,7 +6,7 @@ var writableDescriptor = { writable: true };
 module.exports = List;
 
 function isArrayLike(obj) {
-	return typeof obj === 'object' && 'length' in obj;
+	return obj && typeof obj === 'object' && 'length' in obj;
 }
 
 function List(array) {

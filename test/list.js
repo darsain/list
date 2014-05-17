@@ -47,6 +47,10 @@ describe('List([array])', function () {
 		var list = new List(a);
 		assert(compare(a, list));
 	});
+	it('should ignore null as 1st argument', function () {
+		var list = new List(null);
+		assert(list.length === 0);
+	});
 	it('should for...in loop only thorugh items', function () {
 		var list = new List('abc'.split(''));
 		var keys = [];
