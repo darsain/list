@@ -177,7 +177,18 @@ definer(MyList.prototype)
 	});
 ```
 
-### Testing
+### Extensions
+
+- [darsain/sortedlist](https://github.com/darsain/sortedlist) -
+	Makes sure the list is sorted by using binary search when inserting new items. Supports custom sorting function.
+
+- [darsain/uniquelist](https://github.com/darsain/uniquelist) -
+	Makes sure the list has only unique items without duplicates. Supports custom comparing function.
+
+- [darsain/uniquesortedlist](https://github.com/darsain/uniquesortedlist) -
+	Makes sure the list is both sorted **and** unique. Supports custom sorting function.
+
+## Testing
 
 To run tests:
 
@@ -187,20 +198,6 @@ component build --dev
 ```
 
 And open `test/index.html`
-
-### Extensions
-
-#### [darsain/sortedlist](https://github.com/darsain/sortedlist)
-
-Makes sure the list is sorted by using binary search when inserting new items. Supports custom sorting function.
-
-#### [darsain/uniquelist](https://github.com/darsain/uniquelist)
-
-Makes sure the list has only unique items without duplicates. Supports custom comparing function.
-
-#### [darsain/uniquesortedlist](https://github.com/darsain/uniquesortedlist)
-
-Makes sure the list is both sorted **and** unique. Supports custom sorting function.
 
 ## License
 
