@@ -47,6 +47,12 @@ describe('List([array])', function () {
 		var list = new List(a);
 		assert(compare(a, list));
 	});
+	it('should for...in loop only thorugh items', function () {
+		var list = new List('abc'.split(''));
+		var keys = [];
+		for (var key in list) keys.push(key);
+		assert(compare(keys, ['0','1','2']));
+	});
 });
 
 describe('#concat(arrayLike1, ..., arrayLikeN)', function () {
