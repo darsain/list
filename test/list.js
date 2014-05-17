@@ -1,5 +1,6 @@
-var assert = require('assert');
 var List = require('list');
+var assert = require('assert');
+var isArray = require('isarray');
 
 /**
  * Compares an array like objects.
@@ -49,36 +50,13 @@ describe('List([array])', function () {
 });
 
 describe('#concat(arrayLike1, ..., arrayLikeN)', function () {
-	it('should return a new List', function () {
-		var seed = 'abcd'.split('');
-		var a = new List(seed);
-		var b = a.concat();
-		assert(b instanceof List);
-		assert(a !== b);
-		assert(compare(b, seed));
+	var a = new List('abc'.split(''));
+	var b = a.concat('def'.split(''), 'ghi'.split(''), 'j');
+	it('should return a new Array', function () {
+		assert(isArray(b));
 	});
-	it('should concatenate an Array', function () {
-		var a = new List('abc'.split(''));
-		var b = 'def'.split('');
-		var c = a.concat(b);
-		var result = 'abcdef'.split('');
-		assert(compare(c, result));
-	});
-	it('should concatenate a List', function () {
-		var a = new List('abc'.split(''));
-		var b = new List('def'.split(''));
-		var c = a.concat(b);
-		var result = 'abcdef'.split('');
-		assert(compare(c, result));
-	});
-	it('should accept multiple arguments', function () {
-		var a = new List('abc'.split(''));
-		var b = new List('de'.split(''));
-		var c = 'fgh'.split('');
-		var d = 'ij'.split('');
-		var e = a.concat(b, c, d);
-		var result = 'abcdefghij'.split('');
-		assert(compare(e, result));
+	it('should work', function () {
+		assert(b.join('') === 'abcdefghij');
 	});
 });
 
@@ -91,27 +69,17 @@ describe('#every(callback, [thisArg]) - inherited, IE9+', function () {
 	});
 });
 
-describe('#filter(callback, [thisArg])', function () {
+describe('#filter(callback, [thisArg]) - inherited, IE9+', function () {
 	var a = new List([1,2,3,4,5]);
 	var b = a.filter(biggerThanTwo);
 	function biggerThanTwo(v) {
 		return v > 2;
 	}
-	it('should filter an array', function () {
+	it('should return a new Array', function () {
+		assert(isArray(b));
+	});
+	it('should work', function () {
 		assert(compare(b, [3,4,5]));
-	});
-	it('should return a new List', function () {
-		assert(b instanceof List);
-		assert(a !== b);
-	});
-	it('should accept thisArg', function () {
-		var thisArg = {};
-		var passed;
-		new List([1]).filter(catchThisArg, thisArg);
-		assert(thisArg === passed);
-		function catchThisArg() {
-			passed = this;
-		}
 	});
 });
 
@@ -152,27 +120,17 @@ describe('#lastIndexOf(searchElement, [fromIndex]) - inherited, IE9+', function 
 	});
 });
 
-describe('#map(callback, [thisArg])', function () {
+describe('#map(callback, [thisArg]) - inherited, IE9+', function () {
 	var a = new List([1,2,3,4]);
 	var b = a.map(timesTen);
 	function timesTen(v) {
 		return v * 10;
 	}
-	it('should map a List', function () {
+	it('should return a new Array', function () {
+		assert(isArray(b));
+	});
+	it('should work', function () {
 		assert(compare(b, [10,20,30,40]));
-	});
-	it('should return a new List', function () {
-		assert(b instanceof List);
-		assert(a !== b);
-	});
-	it('should accept thisArg', function () {
-		var thisArg = {};
-		var passed;
-		new List([1]).map(catchThisArg, thisArg);
-		assert(thisArg === passed);
-		function catchThisArg() {
-			passed = this;
-		}
 	});
 });
 
@@ -235,27 +193,25 @@ describe('#shift() - inherited', function () {
 	});
 });
 
-describe('#slice(begin, [end])', function () {
+describe('#slice(begin, [end]) - inherited', function () {
 	var seed = 'abcdef'.split('');
 	var a = new List(seed);
-	it('should return a new List', function () {
-		var b = a.slice();
-		assert(b instanceof List);
-		assert(a !== b);
+	it('should return a new Array', function () {
+		assert(isArray(a.slice()));
 	});
-	it('should slice with positive indexes', function () {
-		var b = a.slice(2);
-		var c = a.slice(2, 4);
+	it('should work', function () {
+		var b, c;
+		// positive indexes
+		b = a.slice(2);
+		c = a.slice(2, 4);
 		assert(compare(b, 'cdef'.split('')));
 		assert(compare(c, 'cd'.split('')));
-	});
-	it('should slice with negative indexes', function () {
-		var b = a.slice(-2);
-		var c = a.slice(-4, -2);
+		// negative indexes
+		b = a.slice(-2);
+		c = a.slice(-4, -2);
 		assert(compare(b, 'ef'.split('')));
 		assert(compare(c, 'cd'.split('')));
-	});
-	it('should not mutate original List', function () {
+		// don't mutate original
 		assert(compare(a, seed));
 	});
 });
@@ -279,22 +235,20 @@ describe('#sort(callback, [thisArg]) - inherited', function () {
 
 describe('#splice(index , howMany, [element1, ..., elementN])', function () {
 	var seed = 'abcdef'.split('');
-	it('should return a new List', function () {
-		var a = new List(seed);
-		var returned = a.splice(2, 1);
-		assert(returned instanceof List);
-		assert(compare(returned, ['c']));
+	it('should return a new Array', function () {
+		assert(isArray(new List(seed).splice(2, 1)));
 	});
-	it('should remove elements', function () {
-		var a = new List(seed);
-		var beforeLength = a.length;
+	it('should work', function () {
+		var a, beforeLength;
+		// removing elements
+		a = new List(seed);
+		beforeLength = a.length;
 		a.splice(2, 1);
 		assert(compare(a, 'abdef'.split('')));
 		assert(a.length === beforeLength - 1);
-	});
-	it('should add elements', function () {
-		var a = new List(seed);
-		var beforeLength = a.length;
+		// adding elements
+		a = new List(seed);
+		beforeLength = a.length;
 		a.splice(2, 1, 'x', 'y');
 		assert(compare(a, 'abxydef'.split('')));
 		assert(a.length === beforeLength + 1);

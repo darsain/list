@@ -21,7 +21,8 @@
   "development": {
     "dependencies": {
       "visionmedia/mocha": "*",
-      "component/assert": "*"
+      "component/assert": "*",
+      "juliangruber/isArray": "*"
     }
   },
   "license": "MIT"

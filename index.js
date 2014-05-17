@@ -24,10 +24,6 @@ definer(List.prototype)
 
 	/* modified native methods */
 	.m('concat', concat)
-	.m('filter', filter)
-	.m('map', map)
-	.m('slice', slice)
-	.m('splice', splice)
 
 	/* custom methods */
 	.m('add', add)
@@ -36,31 +32,7 @@ definer(List.prototype)
 	.m('toArray', toArray);
 
 function concat() {
-	var newList = new this.constructor(this);
-	newList.add.apply(newList, arguments);
-	return newList;
-}
-
-function filter(fun, thisArg) {
-	var newList = new this.constructor();
-	for (var i = 0; i < this.length; i++) {
-		if (fun.call(thisArg, this[i], i, this)) newList.push(this[i]);
-	}
-	return newList;
-}
-
-function map(fun, thisArg) {
-	var newList = new this.constructor();
-	for (var i = 0; i < this.length; i++) newList.push(fun.call(thisArg, this[i], i, this));
-	return newList;
-}
-
-function slice() {
-	return new this.constructor(arrayProto.slice.apply(this, arguments));
-}
-
-function splice() {
-	return new this.constructor(arrayProto.splice.apply(this, arguments));
+	return arrayProto.concat.apply(this.toArray(), arguments);
 }
 
 function add() {
