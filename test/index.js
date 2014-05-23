@@ -2,24 +2,6 @@ var List = require('list');
 var assert = require('assert');
 var isArray = require('isarray');
 
-/**
- * Compares an array like objects.
- * @param {Object} a
- * @param {Object} b
- * @return {Boolean}
- */
-function compare(a, b) {
-	try {
-		if (a.length !== b.length) return false;
-		for (var i = 0; i < a.length; i++) {
-			if (a[i] !== b[i]) return false;
-		}
-	} catch (e) {
-		return false;
-	}
-	return true;
-}
-
 describe('List([array])', function () {
 	it('should inherit from Array', function () {
 		assert(new List() instanceof Array);
@@ -38,14 +20,14 @@ describe('List([array])', function () {
 		assert(list.length === 0);
 	});
 	it('should absorb an Array when passed as 1st argument', function () {
-		var a = 'abc'.split('');
-		var list = new List(a);
-		assert(compare(a, list));
+		var foo = 'abc'.split('');
+		var bar = new List(foo);
+		assert(foo.join() === bar.join());
 	});
 	it('should absorb a List when passed as 1st argument', function () {
-		var a = new List('abc'.split(''));
-		var list = new List(a);
-		assert(compare(a, list));
+		var foo = new List('abc'.split(''));
+		var bar = new List(foo);
+		assert(foo.join() === bar.join());
 	});
 	it('should ignore null as 1st argument', function () {
 		var list = new List(null);
@@ -55,7 +37,7 @@ describe('List([array])', function () {
 		var list = new List('abc'.split(''));
 		var keys = [];
 		for (var key in list) keys.push(key);
-		assert(compare(keys, ['0','1','2']));
+		assert(keys.join() === '0,1,2');
 	});
 });
 
@@ -89,7 +71,7 @@ describe('#filter(callback, [thisArg]) - inherited, IE9+', function () {
 		assert(isArray(b));
 	});
 	it('should work', function () {
-		assert(compare(b, [3,4,5]));
+		assert(b.join() === '3,4,5');
 	});
 });
 
@@ -98,7 +80,7 @@ describe('#forEach(callback, [thisArg]) - inherited, IE9+', function () {
 		var a = new List([1,2,3,4,5]);
 		var b = [];
 		a.forEach(addToB);
-		assert(compare(a, b));
+		assert(a.join() === b.join());
 		function addToB(v) {
 			return b.push(v);
 		}
@@ -140,7 +122,7 @@ describe('#map(callback, [thisArg]) - inherited, IE9+', function () {
 		assert(isArray(b));
 	});
 	it('should work', function () {
-		assert(compare(b, [10,20,30,40]));
+		assert(b.join() === '10,20,30,40');
 	});
 });
 
@@ -170,7 +152,7 @@ describe('#reduce(callback, [initialValue]) - inherited, IE9+', function () {
 		var arr = new List([[0,1],[2,3],[4,5]]).reduce(function(a, b) {
 			return a.concat(b);
 		});
-		assert(compare(arr, [0,1,2,3,4,5]));
+		assert(arr.join() === '0,1,2,3,4,5');
 	});
 });
 
@@ -179,7 +161,7 @@ describe('#reduceRight(callback, [initialValue]) - inherited, IE9+', function ()
 		var arr = new List([[0,1],[2,3],[4,5]]).reduceRight(function(a, b) {
 			return a.concat(b);
 		});
-		assert(compare(arr, [4,5,2,3,0,1]));
+		assert(arr.join() === '4,5,2,3,0,1');
 	});
 });
 
@@ -187,7 +169,7 @@ describe('#reverse() - inherited', function () {
 	it('should work', function () {
 		var list = new List([0,1,2,3,4,5]);
 		var returned = list.reverse();
-		assert(compare(list, [5,4,3,2,1,0]));
+		assert(list.join() === '5,4,3,2,1,0');
 		assert(returned === list);
 	});
 });
@@ -214,15 +196,15 @@ describe('#slice(begin, [end]) - inherited', function () {
 		// positive indexes
 		b = a.slice(2);
 		c = a.slice(2, 4);
-		assert(compare(b, 'cdef'.split('')));
-		assert(compare(c, 'cd'.split('')));
+		assert(b.join() === 'c,d,e,f');
+		assert(c.join() === 'c,d');
 		// negative indexes
 		b = a.slice(-2);
 		c = a.slice(-4, -2);
-		assert(compare(b, 'ef'.split('')));
-		assert(compare(c, 'cd'.split('')));
+		assert(b.join() === 'e,f');
+		assert(c.join() === 'c,d');
 		// don't mutate original
-		assert(compare(a, seed));
+		assert(a.join() === seed.join());
 	});
 });
 
@@ -239,7 +221,7 @@ describe('#sort(callback, [thisArg]) - inherited', function () {
 	it('should work', function () {
 		var list = new List([4,1,2,3]);
 		list.sort();
-		assert(compare(list, [1,2,3,4]));
+		assert(list.join() === '1,2,3,4');
 	});
 });
 
@@ -254,13 +236,13 @@ describe('#splice(index , howMany, [element1, ..., elementN])', function () {
 		a = new List(seed);
 		beforeLength = a.length;
 		a.splice(2, 1);
-		assert(compare(a, 'abdef'.split('')));
+		assert(a.join() === 'a,b,d,e,f');
 		assert(a.length === beforeLength - 1);
 		// adding elements
 		a = new List(seed);
 		beforeLength = a.length;
 		a.splice(2, 1, 'x', 'y');
-		assert(compare(a, 'abxydef'.split('')));
+		assert(a.join() === 'a,b,x,y,d,e,f');
 		assert(a.length === beforeLength + 1);
 	});
 });
@@ -269,7 +251,7 @@ describe('#unshift(element1, ..., elementN) - inherited', function () {
 	it('should work', function () {
 		var list = new List();
 		list.unshift(1, 2);
-		assert(compare(list, [1,2]));
+		assert(list.join() === '1,2');
 	});
 });
 
@@ -277,17 +259,17 @@ describe('#add(mixed1, ..., mixed2)', function () {
 	it('should add items', function () {
 		var list = new List();
 		list.add(1, 2);
-		assert(compare(list, [1,2]));
+		assert(list.join() === '1,2');
 	});
 	it('should add Arrays', function () {
 		var list = new List();
 		list.add([1], [2]);
-		assert(compare(list, [1,2]));
+		assert(list.join() === '1,2');
 	});
 	it('should add Lists', function () {
 		var list = new List();
 		list.add(List([1]), List([2]));
-		assert(compare(list, [1,2]));
+		assert(list.join() === '1,2');
 	});
 });
 
@@ -296,7 +278,7 @@ describe('#each(callback, [thisArg]) - alias for #forEach()', function () {
 		var a = new List([1,2,3,4,5]);
 		var b = [];
 		a.each(addToB);
-		assert(compare(a, b));
+		assert(a.join() === b.join());
 		function addToB(v) {
 			return b.push(v);
 		}
@@ -317,7 +299,7 @@ describe('#toArray()', function () {
 	it('should return a new native Array', function () {
 		var list = new List([1,2]);
 		var arr = list.toArray();
-		assert(compare(list, arr));
+		assert(list.join() === arr.join());
 		assert(arr instanceof Array);
 		assert(!(arr instanceof List));
 		arr[2] = 3;
