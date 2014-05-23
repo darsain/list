@@ -34,28 +34,28 @@ List constructor. `new` keyword is optional.
 
 #### [array]
 
-Type `Object`
-
 Array, or an array-like object to create a List from.
 
 Can be `Array`, `List`, `NodeList`, `arguments`, ... everything that looks like `{ 0: 'foo', length: 1 }`.
 
-**Inherits all methods from Array.prototype with some notable behaviors:**
+#### *Inherits all methods from Array.prototype with some notable behaviors:*
 
 - `#filter()` - Returns a native Array.
 - `#map()` - Returns a native Array.
 - `#slice()` - Returns a native Array.
 - `#splice()` - Returns a native Array.
 
+*Methods documented below are either new, or vary from their previous behavior.*
+
 ### #add(mixed1, ..., mixedN)
 
-Works exactly like `#concat()`, but mutates the List instead of returning a new Array.
+Works exactly like `#concat()`, but mutates the original List instead of returning a new Array.
 
 Example:
 
 ```js
 var list = new List();
-a.add([1, 2, 3], 4);
+a.add(1, [2, 3], 4);
 console.log(a); // [1, 2, 3, 4]
 ```
 
