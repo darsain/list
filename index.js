@@ -1,13 +1,10 @@
 var definer = require('definer');
 var inherit = require('inherit');
+var isArrayLike = require('isarraylike');
 var arrayProto = Array.prototype;
 var writableDescriptor = { writable: true };
 
 module.exports = List;
-
-function isArrayLike(obj) {
-	return obj && typeof obj === 'object' && 'length' in obj;
-}
 
 function List(array) {
 	if (!(this instanceof List)) return new List(array);
