@@ -6,6 +6,17 @@ The purpose of List is to be extensible so you can create special arrays with cu
 
 Also look at [Limitations](#limitations).
 
+#### Extensions
+
+- [darsain/sortedlist](https://github.com/darsain/sortedlist) -
+	Makes sure the list is sorted by using binary search when inserting new items. Supports custom sorting function.
+
+- [darsain/uniquelist](https://github.com/darsain/uniquelist) -
+	Makes sure the list has only unique items without duplicates. Supports custom comparing function.
+
+- [darsain/uniquesortedlist](https://github.com/darsain/uniquesortedlist) -
+	Makes sure the list is both sorted **and** unique. Supports custom sorting function.
+
 ## Install
 
 With [component(1)](https://github.com/component/component):
@@ -180,17 +191,6 @@ definer(MyList.prototype)
 		return new this.constructor(this); // correct
 	});
 ```
-
-### Extensions
-
-- [darsain/sortedlist](https://github.com/darsain/sortedlist) -
-	Makes sure the list is sorted by using binary search when inserting new items. Supports custom sorting function.
-
-- [darsain/uniquelist](https://github.com/darsain/uniquelist) -
-	Makes sure the list has only unique items without duplicates. Supports custom comparing function.
-
-- [darsain/uniquesortedlist](https://github.com/darsain/uniquesortedlist) -
-	Makes sure the list is both sorted **and** unique. Supports custom sorting function.
 
 ## Testing
 
