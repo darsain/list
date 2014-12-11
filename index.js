@@ -37,7 +37,7 @@ function add() {
 	var args = arguments;
 	var a, i;
 	for (a = 0; a < args.length; a++) {
-		if (isArrayLike(args[a])) {
+		if (isArrayLike(args[a], 1)) {
 			for (i = 0; i < args[a].length; i++) this.push(args[a][i]);
 		} else {
 			this.push(args[a]);
