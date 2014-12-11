@@ -15,15 +15,15 @@
     "index.js"
   ],
   "dependencies": {
-    "darsain/definer": "*",
-    "darsain/isarraylike": "*",
+    "darsain/definer": "^1.0.0",
+    "darsain/isarraylike": "^1.0.0",
     "component/inherit": "*"
   },
   "development": {
     "dependencies": {
-      "visionmedia/mocha": "*",
+      "mochajs/mocha": "*",
       "component/assert": "*",
-      "juliangruber/isArray": "*"
+      "juliangruber/isarray": "*"
     }
   },
   "license": "MIT"
