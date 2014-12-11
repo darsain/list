@@ -51,6 +51,7 @@ Can be `Array`, `List`, `NodeList`, `arguments`, ... everything that looks like 
 
 #### *Inherits all methods from Array.prototype with some notable behaviors:*
 
+- `#concat()` - Returns a native Array.
 - `#filter()` - Returns a native Array.
 - `#map()` - Returns a native Array.
 - `#slice()` - Returns a native Array.
@@ -76,7 +77,7 @@ Alias to `#forEach()`.
 
 ### #reset()
 
-Deletes all items and resets the list length to `0`. Alternative to:
+Deletes all items and resets the list length to `0`. An alternative to:
 
 ```js
 array.length = 0;
@@ -95,7 +96,10 @@ var list = new List();
 Array.isArray(list);    // false
 list[list.length] = 42; // list.length won't be updated, use #push()
 list.length = 0;        // doesn't reset the list, use #reset()
+list instanceof Array;  // true, but don't use it! context issues
 ```
+
+If you want to check for List, use `instanceof List`, or something like [darsain/isarraylike](https://github.com/darsain/isarraylike).
 
 #### for...in
 
@@ -197,7 +201,6 @@ definer(MyList.prototype)
 To run tests:
 
 ```
-component install --dev
 component build --dev
 ```
 
