@@ -1,10 +1,11 @@
 var definer = require('definer');
 var inherit = require('inherit');
 var isArrayLike = require('isarraylike');
-var arrayProto = Array.prototype;
-var writableDescriptor = { writable: true };
 
 module.exports = List;
+
+var arrayProto = Array.prototype;
+var writableDescriptor = { writable: true };
 
 function List(array) {
 	if (!(this instanceof List)) return new List(array);
@@ -36,9 +37,11 @@ function add() {
 	var args = arguments;
 	var a, i;
 	for (a = 0; a < args.length; a++) {
-		if (isArrayLike(args[a]))
+		if (isArrayLike(args[a])) {
 			for (i = 0; i < args[a].length; i++) this.push(args[a][i]);
-		else this.push(args[a]);
+		} else {
+			this.push(args[a]);
+		}
 	}
 	return this.length;
 }
